@@ -1,58 +1,71 @@
 
-const detailedImage = document.getElementById("detailedImage");
-const detailedTitle = document.getElementById("detailedTitle");
+
+const detailedImage = document.querySelector(".detailedContainer--image");
+const detailedTitle = document.querySelector(".detailedContainer--title");
 
 
-async function drawImages() {
-  const galleryContainer = document.getElementById("ul_elem");
+const API_KEY = "1eb9c2c4f46b71a5b4e658c14148c7cd";
+
+
+async function drawMovies() {
+  const galleryContainer = document.getElementById("cats_gallery"); 
   if (!galleryContainer) {
-    console.error("Element #ul_elem not found");
+    console.error("Gallery container not found!");
     return;
   }
 
   try {
-    const response = await fetch("https://api.thecatapi.com/v1/breeds");
-    if (!response.ok) throw new Error("Failed to fetch cat breeds");
+    
+    const response = await fetch(
+     `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=en-US&primary_release_year=1987&with_genres=80,9648`
+    );
+
+    if (!response.ok) throw new Error("Failed to fetch movie data");
 
     const data = await response.json();
-    galleryContainer.innerHTML = getItems(data);
+    galleryContainer.innerHTML = getMovieItems(data.results);
 
     
-    addGalleryImageEventListeners();
+    addGalleryMovieEventListeners();
   } catch (error) {
-    console.error("Error fetching cat images:", error);
+    console.error("Error fetching movie data:", error);
     galleryContainer.innerHTML =
-      "<p>Error loading cat breeds. Try again later.</p>";
+      "<p>Error loading movies. Try again later.</p>";
   }
 }
 
-function getItems(data) {
-  return data
-    .map((breed) => {
-      const image = breed.reference_image_id
-        ? `https://cdn2.thecatapi.com/images/${breed.reference_image_id}.jpg`
+
+function getMovieItems(movies) {
+  return movies
+    .map((movie) => {
+      const image = movie.poster_path
+        ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
         : "placeholder.jpg"; 
+      const detailedImage = movie.backdrop_path
+        ? `https://image.tmdb.org/t/p/original${movie.backdrop_path}`
+        : image; 
+
       return `
         <li class="gallery--item">
           <img
             src="${image}"
-            alt="${breed.name}"
+            alt="${movie.title}"
             class="gallery--item_image"
-            data-detailed-image="${image}"
-            data-detailed-title="${breed.description}"
+            data-detailed-image="${detailedImage}"
+            data-detailed-title="${movie.overview || "No description available."}"
           />
-          <span class="gallery--item_title">${breed.name}</span>
+          <span class="gallery--item_title">${movie.title}</span>
         </li>
       `;
     })
     .join("");
 }
 
-function addGalleryImageEventListeners() {
-  const galleryImages = document.querySelectorAll(".gallery--item_image");
-  galleryImages.forEach((image) => {
+
+function addGalleryMovieEventListeners() {
+  document.querySelectorAll(".gallery--item_image").forEach((image) => {
     image.addEventListener("click", function () {
-      setDetails(image);
+      setDetails(image); 
     });
   });
 }
@@ -62,18 +75,15 @@ function setDetails(image) {
   detailedImage.classList.remove("animation-up");
   detailedTitle.classList.remove("animation-down");
 
-
-  requestAnimationFrame(() => {
-   
+  setTimeout(() => {
+    
     detailedImage.src = image.getAttribute("data-detailed-image");
     detailedTitle.innerHTML = image.getAttribute("data-detailed-title");
-
-    void detailedImage.offsetWidth;
 
     
     detailedImage.classList.add("animation-up");
     detailedTitle.classList.add("animation-down");
-  });
+  }, 50);
 }
 
-window.onload = drawImages;
+window.onload = drawMovies;

@@ -4,8 +4,8 @@ body {
   --width-gallery-image: 12rem;
   --width-gallery: calc(var(--width-gallery-image) * 2 + var(--width-gallery-image) / 2);
   --height-gallery-image: 10rem;
-  --background-color-title: aliceblue;
-  --color-title: black;
+  --background-color-title: lightgrey;
+  --color-title: rgb(28, 46, 248);
   --width-detailed-title: 30ch
 
 }
@@ -26,6 +26,7 @@ h2 {
   display: flex;
   flex-direction: column;
   justify-content: start;
+  background-color: lightseagreen;
 }
 .detailedFrame {
   flex-grow: 1;
@@ -136,7 +137,7 @@ h2 {
   font-family: LakeshoreDrive;
   font-size: 3rem;
   text-align: center;
-  background-color: azure;
+  background-color: lightgrey;
   text-transform: uppercase;
   letter-spacing: 8px;
 }
