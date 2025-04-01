@@ -2,46 +2,55 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-  <link rel="stylesheet" href="css/fonts.css">
-  <link rel="stylesheet" href="css/styles.css">
-  <title>Movies</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <link rel="stylesheet" href="css/fonts.css" />
+  <link rel="stylesheet" href="css/styles.css" />
+
+  <title>Filmagram</title>
 </head>
 
 <body>
   <header>
-    <h2 class="logo">Movies</h2>
+    <h2 class="logo">Filmagram</h2>
   </header>
-
-  <div class="main">
+  <section class="main hidden">
     <div class="detailedFrame">
       <div class="detailedContainer">
-        <img src="images/The History of Movies.png" alt="Movie Poster" class="detailedContainer--image animation-up">
-       
-        <span class="detailedContainer--title animation-down">History of world cinema<span class="for_ellipsis">The advent of
-            film as an artistic medium is not clearly defined. There were earlier cinematographic screenings by others
-            like the first showing of life sized pictures in motion 1894 in Berlin by Ottomar Anschütz; however, the commercial,
-        public screening of ten Lumière brothers' short films in Paris on 28 December 1895, can be regarded as the breakthrough
-        of projected cinematographic motion pictures. The earliest films were in black and white, under a minute long, without
-        recorded sound, and consisted of a single shot from a steady camera. The first decade saw film move from a novelty, to
-        an established mass entertainment industry, with film production companies and studios established throughout the world.
-        Conventions toward a general cinematic language developed, with film editing, camera movements and other cinematic
-        techniques contributing specific roles in the narrative of films.
-</span>
+        <img src="images/The History of Movies.png" alt="common films lmage" class="detailedContainer--image animation-up" />
+        <span class="detailedContainer--title animation-down">gallery of the movies from themoviedb API. You may see
+          many movies with images and short description. Sorted by popularity in the descending order
+          <span class="for_ellipsis">.....</span>
         </span>
       </div>
-      </div>
-
+    </div>
     <ul class="gallery" id="cats_gallery">
       
-    </ul>
-  </div>
 
+    </ul>
+  </section>
+  <section>
+    <form id="query-form" class="input-form">
+      <div class="input-group">
+        <label class="input-label">Year</label>
+        <input required class="input-element" type="number" name="year" placeholder="enter year" min="1870" max="2025">
+      </div>
+      <div class="input-buttons">
+        <button type="submit" class="input-button">Submit</button>
+        <button type="reset" class="input-button">Reset</button>
+      </div>
+             
+      
+
+    </form>
+  </section>
+  <button class="fold-button">next</button>
+  <button class="button-back" onclick="moveToInputData()">back</button>
   <script src="src/script.js"></script>
 </body>
 
